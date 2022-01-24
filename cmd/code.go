@@ -17,13 +17,13 @@ import (
 // codeCmd represents the code command
 var codeCmd = &cobra.Command{
 	Use:   "code",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "It will open the directory in Visual Studio Code",
+	Long: `This command will help to open the unzipped folder
+		   to Visual Studio Code.
+		   In order for this command to work, Visual SStudio Code should be installed.`,
+	Args: cobra.ExactArgs(1),
+	Example: `uzo code demo.zip
+			  uzo code \Downloads\demo.zip`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var fileName string
 		var err error
@@ -52,6 +52,7 @@ to quickly create a Cobra application.`,
 		}
 
 		util.Unzip(fileName, wd)
+		util.OpenExtractTarGzLocation()
 
 		os.Chdir(util.FilenameWithoutExtension(fileName))
 
